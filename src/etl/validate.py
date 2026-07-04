@@ -1,19 +1,23 @@
-import pandas as pd
+def validate_data(datasets):
+    """
+    Validate all extracted datasets.
+    """
 
+    print("\n" + "=" * 60)
+    print("VALIDATING DATASETS")
+    print("=" * 60)
 
-def validate_dataframe(df: pd.DataFrame, table_name: str):
+    for table_name, df in datasets.items():
 
-    print("\n" + "=" * 70)
-    print(f"VALIDATING {table_name.upper()}")
-    print("=" * 70)
+        if df.empty:
+            raise ValueError(f"{table_name} dataset is empty!")
 
-    print(f"Rows : {len(df)}")
-    print(f"Columns : {len(df.columns)}")
+        print(
+            f"✅ {table_name:<22}"
+            f" Rows: {len(df):>8} | Columns: {len(df.columns):>2}"
+        )
 
-    print(f"Duplicate Rows : {df.duplicated().sum()}")
+    print("=" * 60)
+    print("All datasets validated successfully.\n")
 
-    print("\nMissing Values")
-
-    print(df.isnull().sum())
-
-    return True
+    return datasets
