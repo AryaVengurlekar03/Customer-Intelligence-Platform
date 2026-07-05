@@ -1,0 +1,58 @@
+======================================================================
+CUSTOMER CLUSTER REPORT
+======================================================================
+
+Cluster ID      : 0
+Segment Name    : Champions
+Customers       : 34914
+Average Recency : 136.29
+Average Frequency : 1.00
+Average Monetary : 138.24
+Business Insight:
+High-value customers with frequent purchases. Reward them with loyalty programs and exclusive offers.
+
+----------------------------------------------------------------------
+
+Cluster ID      : 1
+Segment Name    : Loyal Customers
+Customers       : 34486
+Average Recency : 304.96
+Average Frequency : 1.00
+Average Monetary : 133.96
+Business Insight:
+Consistent repeat buyers. Encourage referrals and personalized recommendations.
+
+----------------------------------------------------------------------
+
+Cluster ID      : 2
+Segment Name    : Potential Loyalists
+Customers       : 2259
+Average Recency : 286.38
+Average Frequency : 1.02
+Average Monetary : 1232.38
+Business Insight:
+Recently active customers with growth potential. Offer targeted promotions.
+
+----------------------------------------------------------------------
+
+Cluster ID      : 3
+Segment Name    : At Risk
+Customers       : 2962
+Average Recency : 268.31
+Average Frequency : 2.12
+Average Monetary : 290.31
+Business Insight:
+Customers whose activity has declined. Launch re-engagement campaigns.
+
+----------------------------------------------------------------------
+
+Cluster ID      : 4
+Segment Name    : Budget Buyers
+Customers       : 21474
+Average Recency : 509.10
+Average Frequency : 1.00
+Average Monetary : 135.93
+Business Insight:
+Price-sensitive customers. Promote discounts and bundle offers.
+
+----------------------------------------------------------------------

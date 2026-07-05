@@ -2,8 +2,7 @@ from pathlib import Path
 
 from sklearn.preprocessing import StandardScaler
 
-from src.ml.data_loader import load_customer_segments
-
+from src.ml.data_loader import load_customer_data
 
 OUTPUT_DIR = Path("ml_output")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -11,7 +10,21 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 
 def preprocess():
 
-    df = load_customer_segments()
+    df = load_customer_data()
+
+    # -----------------------
+    # Recency
+    # -----------------------
+
+    reference_date = df["last_purchase"].max()
+
+    df["recency"] = (
+        reference_date - df["last_purchase"]
+    ).dt.days
+
+    # -----------------------
+    # Features
+    # -----------------------
 
     features = df[
         [
@@ -23,9 +36,9 @@ def preprocess():
 
     scaler = StandardScaler()
 
-    scaled = scaler.fit_transform(features)
+    scaled_features = scaler.fit_transform(features)
 
-    return df, scaled
+    return df, scaled_features
 
 
 if __name__ == "__main__":

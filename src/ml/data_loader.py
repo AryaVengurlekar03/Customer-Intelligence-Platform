@@ -1,26 +1,28 @@
-from pathlib import Path
-
-import pandas as pd
+from src.analytics.database_reader import execute_query
 
 
-REPORTS_DIR = Path("reports")
+def load_customer_data():
 
+    query = """
+    SELECT
+        c.customer_unique_id,
+        MAX(o.order_purchase_timestamp) AS last_purchase,
+        COUNT(DISTINCT o.order_id) AS frequency,
+        ROUND(SUM(p.payment_value),2) AS monetary
+    FROM customers c
+    JOIN orders o
+        ON c.customer_id = o.customer_id
+    JOIN payments p
+        ON o.order_id = p.order_id
+    GROUP BY c.customer_unique_id;
+    """
 
-def load_customer_segments():
-
-    file = REPORTS_DIR / "customer_segments.csv"
-
-    if not file.exists():
-        raise FileNotFoundError(
-            "Run customer_segmentation.py first."
-        )
-
-    return pd.read_csv(file)
+    return execute_query(query)
 
 
 if __name__ == "__main__":
 
-    df = load_customer_segments()
+    df = load_customer_data()
 
     print(df.head())
 
