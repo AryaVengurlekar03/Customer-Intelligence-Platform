@@ -35,3 +35,14 @@ def extract_data():
         datasets[table] = pd.read_csv(file_path)
 
     return datasets
+
+
+if __name__ == "__main__":
+    datasets = extract_data()
+
+    print("\n" + "=" * 60)
+    print("DATASETS LOADED SUCCESSFULLY")
+    print("=" * 60)
+
+    for name, df in datasets.items():
+        print(f"{name}: {df.shape}")

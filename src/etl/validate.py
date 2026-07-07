@@ -1,23 +1,36 @@
-def validate_data(datasets):
+import pandas as pd
+from src.etl.extract import extract_data
+
+
+def validate_dataframe(df: pd.DataFrame, table_name: str):
     """
-    Validate all extracted datasets.
+    Validate a dataframe before loading it.
     """
 
-    print("\n" + "=" * 60)
-    print("VALIDATING DATASETS")
-    print("=" * 60)
+    print("\n" + "=" * 70)
+    print(f"VALIDATING: {table_name.upper()}")
+    print("=" * 70)
 
-    for table_name, df in datasets.items():
+    print(f"Rows: {len(df)}")
+    print(f"Columns: {len(df.columns)}")
 
-        if df.empty:
-            raise ValueError(f"{table_name} dataset is empty!")
+    print("\nColumn Names:")
+    print(list(df.columns))
 
-        print(
-            f"✅ {table_name:<22}"
-            f" Rows: {len(df):>8} | Columns: {len(df.columns):>2}"
-        )
+    print("\nMissing Values:")
+    print(df.isnull().sum())
 
-    print("=" * 60)
-    print("All datasets validated successfully.\n")
+    print(f"\nDuplicate Rows: {df.duplicated().sum()}")
 
-    return datasets
+    print("\nData Types:")
+    print(df.dtypes)
+
+    print("=" * 70)
+
+
+if __name__ == "__main__":
+
+    datasets = extract_data()
+
+    for table_name, dataframe in datasets.items():
+        validate_dataframe(dataframe, table_name)
