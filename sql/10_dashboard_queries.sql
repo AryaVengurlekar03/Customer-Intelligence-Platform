@@ -70,9 +70,8 @@ SUM(payment_value),
 2
 ) AS revenue
 
-FROM orders o
-
-JOIN payments p
+FROM orders AS o
+JOIN payments AS p
 
 ON o.order_id=p.order_id
 

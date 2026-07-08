@@ -1,45 +1,17 @@
 import pandas as pd
-import psycopg2
+from sqlalchemy import text
+from src.database.connection import get_engine
 
-from src.config.database import DB_CONFIG
 
-
-def get_connection():
+class DatabaseReader:
     """
-    Create and return a PostgreSQL connection.
+    Executes SQL queries and returns pandas DataFrames.
     """
-    return psycopg2.connect(
-        host=DB_CONFIG["host"],
-        port=DB_CONFIG["port"],
-        database=DB_CONFIG["database"],
-        user=DB_CONFIG["user"],
-        password=DB_CONFIG["password"],
-    )
 
+    def __init__(self):
+        self.engine = get_engine()
 
-def read_table(table_name):
-    """
-    Read an entire table into a Pandas DataFrame.
-    """
-    conn = get_connection()
+    def query(self, sql: str):
 
-    query = f"SELECT * FROM {table_name};"
-
-    df = pd.read_sql(query, conn)
-
-    conn.close()
-
-    return df
-
-
-def execute_query(query):
-    """
-    Execute any SQL query and return the result as a DataFrame.
-    """
-    conn = get_connection()
-
-    df = pd.read_sql(query, conn)
-
-    conn.close()
-
-    return df
+        with self.engine.connect() as conn:
+            return pd.read_sql(text(sql), conn)

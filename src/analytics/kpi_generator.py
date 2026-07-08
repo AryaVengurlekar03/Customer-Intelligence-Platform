@@ -1,64 +1,26 @@
-from src.analytics.database_reader import execute_query
+from src.analytics.dashboard_service import DashboardService
 
 
-def display(title, value):
-    print(f"{title:<35}: {value}")
+class KPIGenerator:
 
+    def __init__(self):
+        self.dashboard = DashboardService()
 
-def main():
+    def generate(self):
 
-    print("=" * 60)
-    print("CUSTOMER INTELLIGENCE PLATFORM")
-    print("EXECUTIVE KPI DASHBOARD")
-    print("=" * 60)
+        print("\n========== KPI REPORT ==========\n")
 
-    queries = {
+        print(self.dashboard.get_total_revenue())
 
-        "Total Revenue":
-        """
-        SELECT ROUND(SUM(payment_value),2)
-        FROM payments;
-        """,
+        print(self.dashboard.get_total_orders())
 
-        "Total Orders":
-        """
-        SELECT COUNT(*)
-        FROM orders;
-        """,
+        print(self.dashboard.get_total_customers())
 
-        "Total Customers":
-        """
-        SELECT COUNT(DISTINCT customer_unique_id)
-        FROM customers;
-        """,
+        print(self.dashboard.get_total_sellers())
 
-        "Total Sellers":
-        """
-        SELECT COUNT(*)
-        FROM sellers;
-        """,
-
-        "Total Products":
-        """
-        SELECT COUNT(*)
-        FROM products;
-        """,
-
-        "Average Order Value":
-        """
-        SELECT ROUND(AVG(payment_value),2)
-        FROM payments;
-        """
-    }
-
-    for title, query in queries.items():
-
-        result = execute_query(query)
-
-        display(title, result.iloc[0, 0])
-
-    print("=" * 60)
+        print("\n===============================\n")
 
 
 if __name__ == "__main__":
-    main()
+
+    KPIGenerator().generate()

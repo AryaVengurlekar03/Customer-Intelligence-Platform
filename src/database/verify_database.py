@@ -1,52 +1,34 @@
-import psycopg2
-
-from src.config.database import DB_CONFIG
+from sqlalchemy import text
+from src.database.connection import get_engine
 
 TABLES = [
-
     "customers",
-
-    "orders",
-
     "products",
-
-    "payments",
-
-    "reviews",
-
-    "order_items",
-
     "sellers",
-
+    "orders",
+    "payments",
+    "reviews",
+    "order_items",
     "geolocation",
-
-    "category_translation",
-
+    "category_translation"
 ]
 
 
-conn = psycopg2.connect(
-    host=DB_CONFIG["host"],
-    port=DB_CONFIG["port"],
-    database=DB_CONFIG["database"],
-    user=DB_CONFIG["user"],
-    password=DB_CONFIG["password"],
-)
+def verify_database():
+    engine = get_engine()
 
-cur = conn.cursor()
+    with engine.connect() as conn:
+        print("\n" + "=" * 60)
+        print("DATABASE VERIFICATION")
+        print("=" * 60)
 
-print("=" * 70)
+        for table in TABLES:
+            result = conn.execute(
+                text(f"SELECT COUNT(*) FROM {table};")
+            ).scalar()
 
-for table in TABLES:
+            print(f"{table:<25} {result:,} rows")
 
-    cur.execute(f"SELECT COUNT(*) FROM {table}")
 
-    rows = cur.fetchone()[0]
-
-    print(f"{table:<25}{rows}")
-
-print("=" * 70)
-
-cur.close()
-
-conn.close()
+if __name__ == "__main__":
+    verify_database()
