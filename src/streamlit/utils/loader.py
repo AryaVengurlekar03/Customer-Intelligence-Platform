@@ -1,12 +1,17 @@
 import pandas as pd
 from sqlalchemy import text
-from src.database.connection import get_engine
 from pathlib import Path
-import pandas as pd
-
-
+from src.database.connection import get_engine
 class Loader:
-
+    def order_status(self):
+     return self.execute("""
+        SELECT
+            order_status,
+            COUNT(*) AS total_orders
+        FROM orders
+        GROUP BY order_status
+        ORDER BY total_orders DESC
+    """)
     def __init__(self):
         self.engine = get_engine()
 
@@ -269,24 +274,39 @@ class Loader:
 # ML OUTPUTS
 # ==========================================
 
-def cluster_summary(self):
-    return pd.read_csv(
+    def cluster_summary(self):
+     return pd.read_csv(
         Path("ml_output/customer_cluster_summary.csv")
     )
 
 
-def customer_clusters(self):
-    return pd.read_csv(
+    def customer_clusters(self):
+     return pd.read_csv(
         Path("ml_output/customer_clusters.csv")
     )
 
 
-def cluster_report(self):
+    def cluster_report(self):
 
-    with open(
+     with open(
         "ml_output/cluster_report.txt",
         "r",
         encoding="utf8"
     ) as f:
 
+      return f.read()
+    def customer_clusters(self):
+     return pd.read_csv("ml_output/customer_clusters.csv")
+
+    
+    def cluster_summary(self):
+     return pd.read_csv("ml_output/customer_cluster_summary.csv")
+
+
+    def cluster_report(self):
+     with open(
+        "ml_output/cluster_report.txt",
+        "r",
+        encoding="utf-8"
+    ) as f:
         return f.read()

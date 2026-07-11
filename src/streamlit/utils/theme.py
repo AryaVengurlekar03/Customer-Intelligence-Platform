@@ -14,7 +14,15 @@ def load_theme():
     <style>
 
     .main{
-        background:#F5F7FA;
+        background:#F8FAFC;
+    }
+
+    section[data-testid="stSidebar"]{
+        background:#1E293B;
+    }
+
+    section[data-testid="stSidebar"] *{
+        color:white;
     }
 
     div[data-testid="metric-container"]{
@@ -25,14 +33,29 @@ def load_theme():
 
         padding:20px;
 
-        box-shadow:0 2px 8px rgba(0,0,0,.1);
+        box-shadow:0px 4px 10px rgba(0,0,0,.15);
+
+        border-left:6px solid #2563EB;
 
     }
 
-    h1{
-        color:#1F4E79;
+    h1,h2,h3{
+        color:#0F172A;
+        font-weight:700;
     }
+/* Hide Streamlit Main Menu */
+#MainMenu {
+    visibility: hidden;
+}
 
+/* Hide Streamlit Footer */
+footer {
+    visibility: hidden;
+}
+
+/* Hide Header */
+header {
+    visibility: hidden;
+}
     </style>
-    """, unsafe_allow_html=True)
-    
+ """, unsafe_allow_html=True)

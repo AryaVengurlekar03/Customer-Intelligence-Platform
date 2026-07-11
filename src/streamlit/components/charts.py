@@ -1,5 +1,7 @@
 import plotly.express as px
+import plotly.io as pio
 
+pio.templates.default = "plotly_white"
 
 def revenue_chart(df):
 
@@ -45,8 +47,12 @@ def payment_chart(df):
         title="Payment Methods"
     )
 
-    fig.update_layout(height=450)
-
+    fig.update_layout(
+    height=450,
+    template="plotly_white",
+    margin=dict(l=20, r=20, t=50, b=20),
+    title_x=0.2
+)
     return fig
 def category_chart(df):
 
@@ -58,8 +64,12 @@ def category_chart(df):
         title="Top Product Categories"
     )
 
-    fig.update_layout(height=450)
-
+    fig.update_layout(
+    height=450,
+    template="plotly_white",
+    margin=dict(l=20, r=20, t=50, b=20),
+    title_x=0.2
+)
     return fig
 def status_chart(df):
 
@@ -71,7 +81,12 @@ def status_chart(df):
         title="Order Status"
     )
 
-    fig.update_layout(height=450)
+    fig.update_layout(
+    height=450,
+    template="plotly_white",
+    margin=dict(l=20, r=20, t=50, b=20),
+    title_x=0.2
+)
 
     return fig
 def orders_chart(df):
@@ -83,7 +98,12 @@ def orders_chart(df):
         title="Monthly Orders"
     )
 
-    fig.update_layout(height=450)
+    fig.update_layout(
+    height=450,
+    template="plotly_white",
+    margin=dict(l=20, r=20, t=50, b=20),
+    title_x=0.2
+)
 
     return fig
 def sellers_chart(df):
@@ -96,7 +116,12 @@ def sellers_chart(df):
         title="Top Sellers"
     )
 
-    fig.update_layout(height=450)
+    fig.update_layout(
+    height=450,
+    template="plotly_white",
+    margin=dict(l=20, r=20, t=50, b=20),
+    title_x=0.2
+)
 
     return fig
 def customer_distribution_chart(df):
@@ -279,6 +304,38 @@ def cluster_distribution_chart(df):
 
         showlegend=False
 
+    )
+
+    return fig
+def order_status_chart(df):
+
+    fig = px.pie(
+        df,
+        names="order_status",
+        values="total_orders",
+        hole=0.5,
+        title="Order Status Distribution"
+    )
+
+    fig.update_layout(
+        height=450,
+        template="plotly_white"
+    )
+
+    return fig
+def status_chart(df):
+
+    fig = px.pie(
+        df,
+        names="order_status",
+        values="total_orders",
+        hole=0.5,
+        title="Order Status Distribution"
+    )
+
+    fig.update_layout(
+        template="plotly_white",
+        height=450
     )
 
     return fig

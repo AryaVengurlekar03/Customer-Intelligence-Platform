@@ -7,7 +7,7 @@ def show_kpis(revenue, orders, customers, sellers):
 
     c1.metric(
         "💰 Revenue",
-        f"${revenue:,.2f}"
+        f"${revenue:,.0f}"
     )
 
     c2.metric(

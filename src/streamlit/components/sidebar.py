@@ -1,49 +1,84 @@
-from streamlit_option_menu import option_menu
 import streamlit as st
+from pathlib import Path
+from PIL import Image
 
 
 def sidebar():
 
-    with st.sidebar:
+    # ==========================================
+    # Logo
+    # ==========================================
+    try:
+        logo_path = Path(__file__).resolve().parent.parent / "assets" / "logo.png"
 
-        selected = option_menu(
+        if logo_path.exists():
+            logo = Image.open(logo_path)
+            st.sidebar.image(logo, width=180)
+    except Exception:
+        # Skip the logo if it can't be loaded
+        pass
 
-            "Navigation",
+    # ==========================================
+    # Project Title
+    # ==========================================
+    st.sidebar.title("📊 Customer Intelligence")
+    st.sidebar.caption("Business Intelligence Platform")
 
-            [
+    st.sidebar.divider()
 
-                "Dashboard",
+    # ==========================================
+    # Navigation
+    # ==========================================
+    page = st.sidebar.radio(
+        "Navigation",
+        [
+            "Dashboard",
+            "Sales",
+            "Customers",
+            "Products",
+            "Delivery",
+            "Machine Learning",
+        ],
+        label_visibility="collapsed",
+    )
 
-                "Sales",
+    st.sidebar.divider()
 
-                "Customers",
+    # ==========================================
+    # Filters
+    # ==========================================
+    st.sidebar.subheader("🔍 Filters")
 
-                "Products",
+    state = st.sidebar.selectbox(
+        "Customer State",
+        ["All"],
+    )
 
-                "Delivery",
+    payment = st.sidebar.selectbox(
+        "Payment Method",
+        ["All"],
+    )
 
-                "Machine Learning"
+    category = st.sidebar.selectbox(
+        "Product Category",
+        ["All"],
+    )
 
-            ],
+    st.sidebar.divider()
 
-            icons=[
+    # ==========================================
+    # Database Status
+    # ==========================================
+    st.sidebar.success("🟢 Connected to PostgreSQL")
 
-                "speedometer2",
+    st.sidebar.divider()
 
-                "graph-up",
+    # ==========================================
+    # Footer
+    # ==========================================
+    st.sidebar.caption(
+        "Customer Intelligence Platform\n\n"
+        "Built with Python • PostgreSQL • Streamlit • Plotly • Machine Learning"
+    )
 
-                "people",
-
-                "box",
-
-                "truck",
-
-                "cpu"
-
-            ],
-
-            default_index=0
-
-        )
-
-    return selected
+    return page

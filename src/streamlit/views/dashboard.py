@@ -140,3 +140,9 @@ def show_dashboard():
 
 ✔ Dashboard data is loaded directly from PostgreSQL.
 """)
+        st.download_button(
+    label="📥 Download Monthly Revenue",
+    data=revenue_df.to_csv(index=False),
+    file_name="monthly_revenue.csv",
+    mime="text/csv"
+)
